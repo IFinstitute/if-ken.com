@@ -1,0 +1,58 @@
+---
+import { Image } from "astro:assets"
+import if_logo from "../assets/IFken.png"
+// ここで現在の年を自動取得します（毎年書き換えなくて良くなります）
+const currentYear = new Date().getFullYear();
+---
+
+<footer class="bg-white border-t border-gray-100 py-12 mt-auto">
+  <div class="max-w-5xl mx-auto px-6">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
+      
+      <div class="col-span-1 md:col-span-1">
+        <a href="/" class="text-xl font-black text-gray-900 tracking-tighter">
+          <Image src={if_logo} width={30} alt="IF"/> IF <span class="text-orange-500">institute</span>
+        </a>
+        <p class="text-gray-500 text-sm mt-4 leading-relaxed">
+          写真、天文、そしてデータの可視化。<br />
+          日常の中にある「if」を探求する個人の記録。
+        </p>
+      </div>
+
+      <div>
+        <h3 class="text-gray-900 font-bold mb-4 text-sm uppercase tracking-widest">Explore</h3>
+        <ul class="space-y-2 text-sm text-gray-600">
+          <li><a href="/" class="hover:text-orange-500 transition">Home</a></li>
+          <li><a href="/projects/photo" class="hover:text-orange-500 transition">Photography</a></li>
+          <li><a href="/projects/astronomy" class="hover:text-orange-500 transition">Astronomy</a></li>
+          <li><a href="/projects/research" class="hover:text-orange-500 transition">Research</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h3 class="text-gray-900 font-bold mb-4 text-sm uppercase tracking-widest">Contact</h3>
+        <div class="flex space-x-4">
+            <ul>
+                <li>
+                    <a href="https://mixi.social/@Yosuke119ifken" class="text-gray-400 hover:text-orange-500 transition text-sm">Mixi2</a>
+                    <a href="#" class="text-gray-400 hover:text-orange-500 transition text-sm">Twitter</a>
+                    <a href="#" class="text-gray-400 hover:text-orange-500 transition text-sm">Instagram</a>
+                </li>
+                <li>
+                <a href="https://github.com/IFinstitute" class="text-gray-400 hover:text-orange-500 transition text-sm">GitHub</a>
+                <a href="https://researchmap.jp/y-moriyama1019ifken" class="text-gray-400 hover:text-orange-500 transition text-sm">Researchmap</a>
+                </li>
+            </ul>
+        </div>
+        <p class="text-xs text-gray-400 mt-6 font-mono">
+          Developed with Astro & Tailwind
+        </p>
+      </div>
+    </div>
+
+    <div class="border-t border-gray-50 pt-8 flex flex-col md:flex-row justify-between items-center text-gray-400 text-xs">
+      <p>&copy; {currentYear} IF institute / Yosuke Moriyama</p>
+      <p class="mt-4 md:mt-0 italic">Captured in 35mm & Python.</p>
+    </div>
+  </div>
+</footer>

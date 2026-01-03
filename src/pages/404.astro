@@ -1,0 +1,55 @@
+---
+import Layout from "../layouts/Layout.astro";
+import '../styles/global.css';
+---
+
+<Layout title="404 Not Found | IF institute">
+    <main
+        class="min-h-screen bg-gray-50 flex items-center justify-center p-8 font-['M_PLUS_1']"
+    >
+        <div class="max-w-md w-full text-center">
+            <h1
+                style="font-size: clamp(8rem, 20vw, 15rem); line-height: 1;"
+                class="font-black text-orange-500 select-none"
+            >
+                404
+            </h1>
+
+            <p class="text-2xl font-bold text-gray-800 mt-4 mb-2">
+                ページが見つかりません
+            </p>
+
+            <div
+                class="bg-white p-8 rounded-2xl shadow-xl border border-gray-100 mt-6"
+            >
+                <p class="text-gray-600 mb-8 leading-relaxed">
+                    お探しのページは、削除または別のアドレスに移動しました。
+                </p>
+                <p class="text-gray-500 text-sm mb-4">
+                    アクセスしようとしたURL:
+                    <code
+                        id="current-url"
+                        class="block bg-gray-100 p-3 rounded-lg text-orange-700 font-mono text-sm break-all mb-8 italic"
+                    >
+                        ---
+                    </code>
+                </p>
+
+                <a
+                    href="/"
+                    class="inline-block w-full bg-orange-500 hover:bg-orange-600 text-white font-bold py-4 px-6 rounded-xl transition-all shadow-lg shadow-orange-100 hover:-translate-y-1"
+                >
+                    ホームへ戻る
+                </a>
+            </div>
+        </div>
+    </main>
+</Layout>
+
+<script>
+    // ブラウザ側で現在のパスを取得して表示する
+    const urlDisplay = document.getElementById("current-url");
+    if (urlDisplay) {
+        urlDisplay.textContent = window.location.pathname;
+    }
+</script>

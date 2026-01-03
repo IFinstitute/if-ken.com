@@ -1,0 +1,66 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "../../layouts/Layout.astro";
+// 各セクション用のパーツを読み込む（後で作ります）
+import PhotoGallery from "../../components/sections/PhotoGallery.astro";
+import AstronomyDetail from "../../components/sections/AstronomyDetail.astro";
+import MatplotlibDetail from "../../components/sections/MatplotlibDetail.astro";
+
+// 1. Markdownファイルからパスを自動生成
+export async function getStaticPaths() {
+    const projectEntries = await getCollection("projects");
+
+    // ターミナル（VS Codeの下）に表示されます
+    console.log("見つかったID一覧:", projectEntries.map(e => e.data.id));
+
+
+    return projectEntries.map((entry) => ({
+        params: { id: entry.data.id },
+        props: { entry },
+    }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await entry.render(); // Markdownの中身を変換
+const { title, id } = entry.data;
+---
+
+<Layout title={`${title} | IF institute`}>
+    <!-- <main class="min-h-screen bg-gray-50 dark:bg-transparent p-8 font-['M_PLUS_1']"> -->
+    <main class="min-h-screen p-8 font-['M_PLUS_1']">
+        <div class="max-w-3xl mx-auto">
+            <a
+                href="/"
+                class="text-orange-600 hover:underline mb-8 inline-block font-bold"
+                >← 戻る</a
+            >
+
+            <!-- <article class="p-8 rounded-2xl shadow-md border border-gray-100 bg-white dark:bg-slate-900 dark:border-slate-800 dark:shadow-none"> -->
+            <article class="p-8 rounded-2xl shadow-md border border-gray-300  dark:border-slate-800 dark:shadow-none">
+                <header class="mb-8">
+                    <span
+                        class="text-orange-500 font-bold text-sm uppercase tracking-widest"
+                        >Project ID: {id}</span
+                    >
+                    <h1 class="text-4xl font-bold text-gray-900 dark:text-white! mt-2">
+                        {title}
+                    </h1>
+                </header>
+                {/* id ごとに表示するコンポーネントを切り替える */}
+                {
+                    id === "photo" ? (
+                        <PhotoGallery />
+                    // ) : id === "astronomy" ? (
+                    //     <AstronomyDetail />
+                    // ) : id === "matplotlib" ? (
+                    //     <MatplotlibDetail />
+                    ) : (
+                        <div class="prose prose-slate lg:prose-xl max-w-none">
+                            <Content />
+                        </div>
+                    )
+                }
+            </article>
+        </div>
+    </main>
+</Layout>

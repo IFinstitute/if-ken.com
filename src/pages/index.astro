@@ -1,0 +1,139 @@
+---
+// ここはフロントマター（設定エリア）です。
+// レイアウトをインポートしたり、フォントを設定したりします。
+import Layout from "../layouts/Layout.astro";
+import "@fontsource/m-plus-1";
+import { getCollection } from 'astro:content';
+const projects = await getCollection('projects');
+---
+
+<!-- ---
+import Welcome from '../components/Welcome.astro';
+import Layout from '../layouts/Layout.astro';
+
+// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
+// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+---
+
+<Layout>
+    <Welcome />
+</Layout> -->
+<Layout title="IF institute | Yosuke Moriyama">
+    <main class="min-h-screen p-8 font-['M_PLUS_1']">
+        <div class="max-w-2xl mx-auto">
+            <header class="py-10 text-center">
+                <h1 class="text-4xl font-bold text-orange-600">IF institute</h1>
+                <p class="mt-2 text-gray-600">
+                    Yosuke Moriyama の個人ページです。
+                </p>
+            </header>
+
+            <section
+                class="p-6 rounded-xl shadow-md border border-gray-100"
+            >
+                <h2 class="text-2xl font-semibold mb-4 text-gray-800">
+                    自己紹介
+                </h2>
+                <p class="leading-relaxed text-gray-700">
+                    IF研究所 (あいえふ)
+                    をハンドルネームとしてたりします。普段は地球大気をテーマに
+                    matplotlib を研究しています。教育活動にも興味があります。
+                </p>
+                <a href="/projects/matplotlib">
+                    <button
+                        class="mt-8 bg-orange-500 hover:bg-orange-600 text-white font-medium py-2 px-6 rounded-lg transition shadow-lg shadow-orange-100 dark:shadow-orange-900"
+                    >
+                        もっと見る
+                    </button>
+                </a>
+            </section>
+
+            <div class="mt-6 space-y-4">
+                <h4
+                    class="font-bold text-gray-800 dark:text-gray-50 border-l-4 border-orange-500 pl-3"
+                >
+                    趣味・関心
+                </h4>
+                <dl class="space-y-3">
+                    <a href="/projects/photo" class="...">
+                        <section
+                            class=" hover:bg-orange-100 p-6 rounded-xl shadow-md border border-gray-100"
+                        >
+                            <div>
+                                <dt class="font-bold text-orange-600">写真</dt>
+                                <dd
+                                    class="text-gray-700 ml-4 md:ml-0 md:not-italic"
+                                >
+                                    中学から高校で写真部に所属し、大学でも<a
+                                        href="http://www.uecphoto.club.uec.ac.jp/"
+                                        class="text-blue-500 hover:underline"
+                                        >写真研究部</a
+                                    >に関わっています。風景や星景の撮影を好んでおり、研究の合間に散歩がてらスナップを楽しんでいます。最近はフィルム写真にハマっています。
+                                </dd>
+                            </div>
+                        </section>
+                    </a>
+                    <a href="/projects/astronomy" class="...">
+                        <section
+                            class="hover:bg-orange-100 p-6 rounded-xl shadow-md border border-gray-100"
+                        >
+                            <div>
+                                <dt class="font-bold text-orange-600">天文</dt>
+                                <dd class="text-gray-700 ml-4 md:ml-0">
+                                    天文には以前から関心があり、観察や星空の撮影を楽しんでいます。研究の合間に夜空を眺めると落ち着きます。
+                                </dd>
+                            </div>
+                        </section>
+                    </a>
+                    <a href="https://www.amazon.jp/hz/wishlist/ls/2CRRPRHVNC5UO?ref_=wl_share" class="...">
+                        <section
+                            class="hover:bg-orange-100 p-6 rounded-xl shadow-md border border-gray-100"
+                        >
+                            <div>
+                                <dt class="font-bold text-orange-600">
+                                    オレンジ色
+                                </dt>
+                                <dd class="text-gray-700 ml-4 md:ml-0">
+                                    オレンジ色が好きで、普段はオレンジ色の帽子がトレードマークになっています。最近は蛍光で派手なものよりも落ち着いたくすみ系のオレンジが気に入っています。
+                                </dd>
+                            </div>
+                        </section>
+                    </a>
+                    <a href="/projects/research" class="...">
+                        <section
+                            class="hover:bg-orange-100 p-6 rounded-xl shadow-md border border-gray-100"
+                        >
+                            <div>
+                                <dt class="font-bold text-orange-600">
+                                    研究
+                                </dt>
+                                <dd class="text-gray-700 ml-4 md:ml-0">
+                                    地球大気の可視化についての技術的な話をまとめます。
+                                </dd>
+                            </div>
+                        </section>
+                    </a>
+                </dl>
+				<!-- <ul>
+				{projects.map(project => (
+					<li>
+					<a href={`/projects/${project.data.id}`}>{project.data.title}</a>
+					</li>
+				))}
+				</ul> -->
+            </div>
+        </div>
+    </main>
+</Layout>
+
+<style>
+    /* Tailwindを使わずに個別に調整したい場合はここに書けます。
+    Astroのstyleタグは自動的にそのページ内だけに適用（Scoped）されます。
+    <a href="/projects/photo" class="...">写真の詳細を見る</a>
+    <a href="/projects/astronomy" class="...">天文の詳細を見る</a>
+  */
+    dt {
+        font-size: 1.1rem;
+        margin-top: 1rem;
+    }
+</style>

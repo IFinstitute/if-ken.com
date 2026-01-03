@@ -1,0 +1,87 @@
+---
+import { Image } from 'astro:assets';
+import 'photoswipe/style.css'
+const allImages = import.meta.glob<{ default: ImageMetadata }>('/src/assets/photos/*.{JPG, jpg,jpeg,png}');
+const images = Object.values(allImages);
+---
+<section>
+  <!-- <h1 class="text-4xl font-bold mb-4">Photo Gallery</h1> -->
+  <p class="text-gray-600 mb-12">散歩のついでに撮り溜めたフィルム写真たちです。</p>
+  
+  <!-- <div class="grid grid-cols-2 md:grid-cols-4 gap-2" id="gallery">
+    {images.map(async (img) => {
+      const data = await img();
+      return (
+        <a href={data.default.src} data-pswp-width={data.default.width} data-pswp-height={data.default.height} target="_blank">
+          <Image src={data.default} alt="photo" width={400} class="aspect-square object-cover hover:opacity-80 transition" />
+        </a>
+      );
+    })}
+  </div> -->
+  <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4" id="gallery">
+        {images.map(async (image) => {
+          const img = await image();
+          return (
+            <a 
+              href={img.default.src} 
+              data-pswp-width={img.default.width} 
+              data-pswp-height={img.default.height} 
+              target="_blank"
+              class="group overflow-hidden rounded-lg shadow-sm hover:shadow-xl transition-all"
+            >
+              <Image 
+                src={img.default} 
+                alt="Gallery Image" 
+                width={400}
+                class="aspect-square object-cover transition-transform duration-500 group-hover:scale-110"
+              />
+            </a>
+          );
+        })}
+      </div>
+      <script>
+        // 3. PhotoSwipeの初期化
+        import PhotoSwipeLightbox from 'photoswipe/lightbox';
+      
+        const lightbox = new PhotoSwipeLightbox({
+          gallery: '#gallery',
+          children: 'a',
+          pswpModule: () => import('photoswipe'),
+        });
+        lightbox.init();
+      </script>
+</section>
+
+<!-- <Layout title={title}>
+  <main class="max-w-6xl mx-auto px-4 py-12">
+    <a href="/" class="text-orange-600 hover:underline mb-8 inline-block">← 戻る</a>
+    <h1 class="text-4xl font-bold mb-12">{title}</h1>
+
+    {id === 'photo' && (
+      // 2. PhotoSwipe用のコンテナ
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4" id="gallery">
+        {imagePaths.map(async (image) => {
+          const img = await image();
+          return (
+            <a 
+              href={img.default.src} 
+              data-pswp-width={img.default.width} 
+              data-pswp-height={img.default.height} 
+              target="_blank"
+              class="group overflow-hidden rounded-lg shadow-sm hover:shadow-xl transition-all"
+            >
+              <Image 
+                src={img.default} 
+                alt="Gallery Image" 
+                width={400}
+                class="aspect-square object-cover transition-transform duration-500 group-hover:scale-110"
+              />
+            </a>
+          );
+        })}
+      </div>
+    )}
+  </main>
+</Layout>
+
+ -->

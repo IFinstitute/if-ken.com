@@ -1,0 +1,44 @@
+@import "tailwindcss";
+@theme {
+  /* v4でクラスによる切り替えを有効にする設定 */
+    --variant-dark: .dark &;
+}
+/* もし上記が効かない場合は、手動で以下の変数を上書きする設定も有効です */
+@layer base {
+:root {
+    --background: #f8fafc; /* slate-50 */
+    --foreground: #0f172a; /* slate-900 */
+    }
+
+.dark {
+    --background: #020617; /* slate-950 */
+    --foreground: #f8fafc; /* slate-50 */
+    }
+
+body {
+    background-color: var(--background);
+    color: var(--foreground);
+    transition: background-color 0.3s, color 0.3s;
+    }
+}
+/* Layout.astro の <style is:global> 内に追加 */
+.dark .katex {
+  color: #f3f4f6; /* 数式を白っぽくする */
+}
+/* 分数やルートの線も白く */
+.dark .katex .katex-rule {
+  border-color: #f3f4f6;
+}
+.dark h1 {
+  color: #f9fafb !important; /* gray-50 相当 */
+}
+.dark h2 {
+  color: #f9fafb !important; /* gray-50 相当 */
+}
+.dark h3 {
+  color: #f9fafb !important; /* gray-50 相当 */
+}
+.dark h4 {
+  color: #f9fafb !important; /* gray-50 相当 */
+}
+
