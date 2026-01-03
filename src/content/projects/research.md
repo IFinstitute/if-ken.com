@@ -1,5 +1,7 @@
 ---
 title: "研究 Tips"
+date: "2026-01-03"
+category: "research"
 description: "研究に関する技術的なことをまとめます。"
 id: "research"
 ---

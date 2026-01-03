@@ -1,5 +1,7 @@
 ---
 title: "天文について"
+date: "2026-01-03"
+category: "astronomy"
 description: "夜空を眺める楽しさや、観察の記録です。"
 id: "astronomy"
 ---

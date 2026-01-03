@@ -1,5 +1,7 @@
 ---
 title: "最小二乗法について"
+date: "2026-01-03"
+category: "research"
 description: "最小二乗法による回帰直線の導出と回帰直線上の推定値の不確かさについて考えてみます。"
 id: "least_square"
 ---

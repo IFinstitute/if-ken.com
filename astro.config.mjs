@@ -3,12 +3,21 @@ import tailwindcss from '@tailwindcss/vite';
 import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
 
+import sitemap from '@astrojs/sitemap';
+
 export default defineConfig({
+  // Vercelなどで割り当てられた自分のドメインを書く
+  //'https://if-ken.com',
+  site: 'https://if-ken-com.vercel.app/',
+
   vite: {
   plugins: [tailwindcss()]
   },
+
   markdown: {
     remarkPlugins: [remarkMath],
     rehypePlugins: [rehypeKatex],
   },
+
+  integrations: [sitemap()],
 });

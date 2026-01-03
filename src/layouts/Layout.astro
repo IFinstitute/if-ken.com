@@ -1,3 +1,16 @@
+---
+// Layout.astro
+interface Props {
+    title?: string; // タイトルが渡されない場合の予備
+}
+// 他のインポートの下に追加
+import "../styles/global.css";
+import "@fontsource/m-plus-1";
+import Footer from "../components/Footer.astro";
+
+const { title = "IF institute" } = Astro.props; // デフォルト値を設定
+---
+
 <!-- <!doctype html>
 <html lang="en">
     <head>
@@ -19,166 +32,191 @@
         width: 100%;
         height: 100%;
     }
-</style> -->
----
-// Layout.astro
-// 他のインポートの下に追加
-import '../styles/global.css';
-import '@fontsource/m-plus-1';
-import Footer from '../components/Footer.astro';
-
-const { title } = Astro.props;
----
-
-
-<!doctype html>
+</style> --><!doctype html>
 <html lang="ja">
-	<style is:global>
-		/* KaTeXの読み上げ用テキストを隠す */
-		.katex-mathml {
-			clip: rect(1px, 1px, 1px, 1px);
-			border: 0;
-			height: 1px;
-			margin: -1px;
-			overflow: hidden;
-			padding: 0;
-			position: absolute;
-			width: 1px;
-		}
-		/* 数式が長い場合に横スクロールを許可する */
-		.katex-display {
-			overflow-x: auto;
-			overflow-y: hidden;
-		}
-	/* 基本のライトモード設定 */
-	:root {
-		--bg-main: #ffffff;
-		--text-main: #111827;
-	}
-	
-	/* ダークモードの設定（クラスが付与されたとき） */
-	.dark {
-		--bg-main: #111827;
-		--text-main: #f9fafb;
-	}
-	
-	body {
-		background-color: var(--bg-main);
-		color: var(--text-main);
-		transition: background-color 0.3s, color 0.3s;
-	}
-	
-	/* Markdown (prose) のダークモード対応 */
-	/* v4ではクラスの組み合わせで指定するのが最も確実です */
-	.dark .prose {
-		--tw-prose-body: #d1d5db;    /* gray-300相当 */
-		--tw-prose-headings: #ffffff;
-		--tw-prose-links: #fb923c;   /* orange-400相当 */
-		--tw-prose-bold: #ffffff;
-		--tw-prose-code: #ffffff;
-		--tw-prose-quotes: #f3f4f6;
-		--tw-prose-hr: #374151;
-	}
-	
-	/* 数式のダークモード対応 */
-	.dark .katex {
-		color: #f3f4f6;
-	}
-	.dark .katex .katex-rule {
-		border-color: #f3f4f6;
-	}
-	/* Tailwindのクラスが効かない時のバックアップ設定 */
-	
-	/* 通常時 */
-	.sun-icon { display: none; }
-	.moon-icon { display: inline; }
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.png" />
+        <meta name="generator" content={Astro.generator} />
+        <title>
+            {title === "IF institute" ? title : `${title} | IF institute`}
+        </title>
+        <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css"
+        />
 
-	/* darkクラスがついた時 */
-	.dark .sun-icon { display: inline; }
-	.dark .moon-icon { display: none; }
+        <!-- SEO 対策 -->
+        <meta
+            name="description"
+            content="IF institute - 天体写真とデータ解析の記録"
+        />
 
-	/* 背景色の強制上書き */
-	.dark body {
-		background-color: #020617 !important; /* slate-950 */
-		color: #f8fafc !important; /* slate-50 */
-	}
-	/* <html>に .dark が付いたとき、bodyの色を強制的に変更する */
-	html.dark body {
-		background-color: #020617 !important; /* slate-950相当 */
-		color: #f8fafc !important;      /* slate-50相当 */
-	}
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content={title} />
+        <meta
+            property="og:description"
+            content="天体写真や数学的解析に関する技術ブログ"
+        />
+        <meta property="og:site_name" content="IF institute" />
+    </head>
+    <body
+        class="font-['M_PLUS_1'] bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-50 min-h-screen flex flex-col transition-colors duration-300"
+    >
+        <nav
+            class="p-4 flex justify-end max-w-5xl mx-auto w-full bg-transparent"
+        >
+            <button
+                id="theme-toggle"
+                class="p-2 rounded-xl bg-slate-200 dark:bg-slate-800 transition-all border border-slate-300 dark:border-slate-700"
+            >
+                <span class="sun-icon">☀️</span>
+                <span class="moon-icon">🌙</span>
+            </button>
+        </nav>
 
-	/* ついでに、記事のカード（article）やMarkdown部分（prose）も調整 */
-	html.dark .prose {
-		--tw-prose-body: #f1f5f9;
-		--tw-prose-headings: #ffffff;
-		--tw-prose-links: #fb923c;
-	}
-	
-	/* 数式（KaTeX）もダークモードで白くする */
-	html.dark .katex {
-		color: #f1f5f9;
-	}
-	</style>
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<title>if-ken portfolio</title>
-		<link
-		rel="stylesheet"
-		href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css"
-		/>
-	</head>
-	<body class="font-['M_PLUS_1'] bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-50 min-h-screen flex flex-col transition-colors duration-300">
-	
-	<nav class="p-4 flex justify-end max-w-5xl mx-auto w-full bg-transparent">
-		<button id="theme-toggle" class="p-2 rounded-xl bg-slate-200 dark:bg-slate-800 transition-all border border-slate-300 dark:border-slate-700">
-		<span class="sun-icon">☀️</span>
-		<span class="moon-icon">🌙</span>
-		</button>
-	</nav>
+        <main class="flex-grow">
+            <slot />
+        </main>
 
-	<main class="flex-grow">
-		<slot />
-	</main>
-
-	<Footer />
-	</body>
+        <Footer />
+    </body>
 </html>
 
 <script is:inline>
-	// 関数を定義してどこからでも呼べるようにする
-	function applyTheme() {
-		const theme = localStorage.getItem('theme') || 
-		(window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-		
-		if (theme === 'dark') {
-		document.documentElement.classList.add('dark');
-		} else {
-		document.documentElement.classList.remove('dark');
-		}
-	}
+    // 関数を定義してどこからでも呼べるようにする
+    function applyTheme() {
+        const theme =
+            localStorage.getItem("theme") ||
+            (window.matchMedia("(prefers-color-scheme: dark)").matches
+                ? "dark"
+                : "light");
 
-	// 初期化：ページ読み込み時に実行
-	applyTheme();
+        if (theme === "dark") {
+            document.documentElement.classList.add("dark");
+        } else {
+            document.documentElement.classList.remove("dark");
+        }
+    }
 
-	// ボタンのクリックイベント設定
-	function setupToggle() {
-		const button = document.getElementById('theme-toggle');
-		if (!button) return;
+    // 初期化：ページ読み込み時に実行
+    applyTheme();
 
-		// 二重登録を防ぐため一度消してから登録
-		button.removeEventListener('click', toggleTheme);
-		button.addEventListener('click', toggleTheme);
-	}
+    // ボタンのクリックイベント設定
+    function setupToggle() {
+        const button = document.getElementById("theme-toggle");
+        if (!button) return;
 
-	function toggleTheme() {
-		const isDark = document.documentElement.classList.toggle('dark');
-		localStorage.setItem('theme', isDark ? 'dark' : 'light');
-		console.log("Theme toggled. Is dark:", isDark);
-	}
+        // 二重登録を防ぐため一度消してから登録
+        button.removeEventListener("click", toggleTheme);
+        button.addEventListener("click", toggleTheme);
+    }
 
-	// ページ読み込み完了時と、Astroの画面遷移時に実行
-	setupToggle();
-	document.addEventListener('astro:after-swap', setupToggle);
+    function toggleTheme() {
+        const isDark = document.documentElement.classList.toggle("dark");
+        localStorage.setItem("theme", isDark ? "dark" : "light");
+        console.log("Theme toggled. Is dark:", isDark);
+    }
+
+    // ページ読み込み完了時と、Astroの画面遷移時に実行
+    setupToggle();
+    document.addEventListener("astro:after-swap", setupToggle);
 </script>
+<style is:global>
+    /* KaTeXの読み上げ用テキストを隠す */
+    .katex-mathml {
+        clip: rect(1px, 1px, 1px, 1px);
+        border: 0;
+        height: 1px;
+        margin: -1px;
+        overflow: hidden;
+        padding: 0;
+        position: absolute;
+        width: 1px;
+    }
+    /* 数式が長い場合に横スクロールを許可する */
+    .katex-display {
+        overflow-x: auto;
+        overflow-y: hidden;
+    }
+    /* 基本のライトモード設定 */
+    :root {
+        --bg-main: #ffffff;
+        --text-main: #111827;
+    }
+
+    /* ダークモードの設定（クラスが付与されたとき） */
+    .dark {
+        --bg-main: #111827;
+        --text-main: #f9fafb;
+    }
+
+    body {
+        background-color: var(--bg-main);
+        color: var(--text-main);
+        transition:
+            background-color 0.3s,
+            color 0.3s;
+    }
+
+    /* Markdown (prose) のダークモード対応 */
+    /* v4ではクラスの組み合わせで指定するのが最も確実です */
+    .dark .prose {
+        --tw-prose-body: #d1d5db; /* gray-300相当 */
+        --tw-prose-headings: #ffffff;
+        --tw-prose-links: #fb923c; /* orange-400相当 */
+        --tw-prose-bold: #ffffff;
+        --tw-prose-code: #ffffff;
+        --tw-prose-quotes: #f3f4f6;
+        --tw-prose-hr: #374151;
+    }
+
+    /* 数式のダークモード対応 */
+    .dark .katex {
+        color: #f3f4f6;
+    }
+    .dark .katex .katex-rule {
+        border-color: #f3f4f6;
+    }
+    /* Tailwindのクラスが効かない時のバックアップ設定 */
+
+    /* 通常時 */
+    .sun-icon {
+        display: none;
+    }
+    .moon-icon {
+        display: inline;
+    }
+
+    /* darkクラスがついた時 */
+    .dark .sun-icon {
+        display: inline;
+    }
+    .dark .moon-icon {
+        display: none;
+    }
+
+    /* 背景色の強制上書き */
+    .dark body {
+        background-color: #020617 !important; /* slate-950 */
+        color: #f8fafc !important; /* slate-50 */
+    }
+    /* <html>に .dark が付いたとき、bodyの色を強制的に変更する */
+    html.dark body {
+        background-color: #020617 !important; /* slate-950相当 */
+        color: #f8fafc !important; /* slate-50相当 */
+    }
+
+    /* ついでに、記事のカード（article）やMarkdown部分（prose）も調整 */
+    html.dark .prose {
+        --tw-prose-body: #f1f5f9;
+        --tw-prose-headings: #ffffff;
+        --tw-prose-links: #fb923c;
+    }
+
+    /* 数式（KaTeX）もダークモードで白くする */
+    html.dark .katex {
+        color: #f1f5f9;
+    }
+</style>
